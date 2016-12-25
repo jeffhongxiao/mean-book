@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var crypto = require('crypto');
+
 
 var UserSchema = new Schema({
   firstName: String,
@@ -78,7 +80,7 @@ UserSchema.methods.hashPassword = function(password) {
   return crypto.pbkdf2Sync(password, this.salt, 10000, 64).toString('base64');
 };
 UserSchema.methods.authenticate = function(password) {
-	return this.password === hashPassword(password);
+	return this.password === this.hashPassword(password);
 };
 
 UserSchema.statics.findUniqueUsername = function(username, suffix, callback) {

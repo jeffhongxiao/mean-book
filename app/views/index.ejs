@@ -4,7 +4,18 @@
     <title><%= title %></title>
   </head>
   <body>
-    <img src="img/logo.png" alt="logo">
     <h1><%= title %></h1>
+
+	<% if ( userFullName ) { %>
+	<h2>Hello <%=userFullName%> </h2> 
+      <a href="/signout">Sign out</a>
+	  <img src="img/happy-holidays-lights.png" alt="happy holidays">
+	<% } else { %>
+	  <a href="/signup">Signup</a>
+	  <a href="/signin">Signin</a>
+	<% } %>
+	<br>
+
+    <img src="img/logo.png" width=100 alt="logo">
   </body>
 </html>

@@ -9,6 +9,8 @@ var methodOverride = require('method-override');
 
 var passport = require('passport');
 
+var flash = require('connect-flash');
+
 module.exports = function() {
   var app = express();
 
@@ -38,6 +40,7 @@ module.exports = function() {
   app.set('view engine', 'ejs');
 
   /****** AUTHENTICATION *******/
+  app.use(flash());
   app.use(passport.initialize());
   app.use(passport.session());
 
