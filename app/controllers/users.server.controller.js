@@ -16,7 +16,7 @@ exports.create = function(req, res, next) {
 exports.list = function(req, res, next) {
   User.find({},
     'firstName username created website fullName',
-    {skip: 3, limit: 1},
+    {skip: 0, limit: 1},
     function(err, users) {
       if (err) {
         return next(err);
