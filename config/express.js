@@ -7,6 +7,8 @@ var compress = require('compression');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
+var passport = require('passport');
+
 module.exports = function() {
   var app = express();
 
@@ -35,10 +37,13 @@ module.exports = function() {
   app.set('views', 'app/views');
   app.set('view engine', 'ejs');
 
+  /****** AUTHENTICATION *******/
+  app.use(passport.initialize());
+  app.use(passport.session());
 
   require('../app/routes/index.server.routes.js')(app);
   require('../app/routes/user.server.routes')(app);
-  
+
   app.use(express.static('./public'));
 
   return app;
