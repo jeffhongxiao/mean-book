@@ -6,7 +6,7 @@ exports.render = function(req, res) {
 
 	//res.send('Hello World - from MEAN');
 	res.render('index', {
-		title: 'Hello World from EJS',
-		userFullName: req.user ? req.user.firstName : ''
+		title: 'Hello World from MEAN',
+		userFullName: req.user ? req.user.fullName : ''
 	});
 };
