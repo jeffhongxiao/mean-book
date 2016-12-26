@@ -28,7 +28,7 @@ exports.renderSignin = function(req, res, next) {
   if (!req.user) {
     res.render('signin', {
       title: 'Sign-in Form',
-      messages: req.flash('error') || req.flash('info') 
+      messages: req.flash('error') || req.flash('info')
     });
   } else {
     return res.redirect('/');
@@ -39,7 +39,7 @@ exports.renderSignup = function(req, res, next) {
   if (!req.user) {
     res.render('signup', {
       title: 'Sign-up Form',
-      messages: req.flash('error') 
+      messages: req.flash('error')
     });
   } else {
     return res.redirect('/');
@@ -134,4 +134,39 @@ exports.delete = function(req, res, next) {
       res.json(req.user);
     }
   })
+};
+
+exports.saveOAuthUserProfile = function(req, profile, done) {
+  User.findOne({
+    provider: profile.provider,
+    providerId: profile.providerId
+  },
+  function(err, user) {
+    if (err) {
+      return done(err);
+    } else {
+      if (!user) {
+        var possibleUsername = profile.username ||
+          ((profile.email) ? profile.email.split('@')[0] : '');
+
+          User.findUniqueUsername(possibleUsername, null, function(availableUsername) {
+            profile.username = availableUsername;
+
+            user = new User(profile);
+
+            user.save(function(err) {
+              if (err) {
+                var message = _this.getErrorMessage(err);
+                req.flash('error', message);
+                return res.redirect('/signup');
+              }
+              return done(error, user);
+            });
+
+          });
+      } else {
+        return done(err, user);
+      }
+    }
+  });
 };
