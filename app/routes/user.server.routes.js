@@ -24,14 +24,24 @@ module.exports = function(app) {
       failureRedirect: '/signin',
       failureFlash: true
     }));
+
+  app.get('/signout', users.signout);
+
+
   app.get('/oauth/facebook/', passport.authenticate('facebook', {
     failureRedirect: '/signin'
   }));
   app.get('/oauth/facebook/callback', passport.authenticate('facebook', {
     failureRedirect: '/signin',
-	successRedirect: '/'
+	  successRedirect: '/'
   }));
 
+  app.get('/oauth/twitter', passport.authenticate('twitter', {
+    failureRedirect: '/signin'
+  }));
+  app.get('/oauth/twitter/callback', passport.authenticate('twitter', {
+    failureRedirect: '/signin',
+    successRedirect: '/'
+  }));
 
-  app.get('/signout', users.signout);
 }
