@@ -44,10 +44,11 @@ module.exports = function() {
   app.use(passport.initialize());
   app.use(passport.session());
 
+  // XXX: need to be before all *.routes.js, so that /users/*.js can be served
+  app.use(express.static('./public'));
+
   require('../app/routes/index.server.routes.js')(app);
   require('../app/routes/user.server.routes')(app);
-
-  app.use(express.static('./public'));
 
   return app;
 };

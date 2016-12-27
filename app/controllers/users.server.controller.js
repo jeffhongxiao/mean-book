@@ -148,24 +148,24 @@ exports.saveOAuthUserProfile = function(req, profile, done) {
       if (!user) {
         var possibleUsername = profile.username ||
           ((profile.email) ? profile.email.split('@')[0] : '');
+        console.log("possibleUsername: " + possibleUsername);
 
-          User.findUniqueUsername(possibleUsername, null, function(availableUsername) {
-            profile.username = availableUsername;
-            console.log("profile = " + JSON.stringify(profile));
+        User.findUniqueUsername(possibleUsername, null, function(availableUsername) {
+          profile.username = availableUsername;
+          console.log("profile = " + JSON.stringify(profile));
 
-            user = new User(profile);
+          user = new User(profile);
 
-            user.save(function(err) {
-              if (err) {
-                //console.log("error: " + err);
-                var message = _this.getErrorMessage(err);
-                req.flash('error', message);
-                return res.redirect('/signup');
-              }
-              return done(err, user);
-            });
-
+          user.save(function(err) {
+            if (err) {
+              console.log("error: " + err);
+              var message = getErrorMessage(err);
+              req.flash('error', message);
+            }
+            return done(err, user);
           });
+
+        });
       } else {
         return done(err, user);
       }

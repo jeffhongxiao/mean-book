@@ -4,9 +4,9 @@ exports.render = function(req, res) {
 	}
 	req.session.lastVisit = new Date();
 
-	//res.send('Hello World - from MEAN');
 	res.render('index', {
 		title: 'Hello World from MEAN',
-		userFullName: req.user ? req.user.fullName : ''
+		//userFullName: req.user ? req.user.fullName : ''
+		user: JSON.stringify(req.user)
 	});
 };

@@ -1,6 +1,6 @@
 var mainApplicationModuleName= 'mean';
 
-var mainApplicationModule = angular.module(mainApplicationModuleName, ['ngRoute', 'example']);
+var mainApplicationModule = angular.module(mainApplicationModuleName, ['ngRoute', 'users', 'example']);
 
 // config hashbang (#!), for better SEO
 mainApplicationModule.config(
@@ -8,6 +8,9 @@ mainApplicationModule.config(
     $locationProvider.hashPrefix('!');
   }]
 );
+
+if (window.location.hash === '#_=_')
+  window.location.hash = '#!';
 
 angular.element(document).ready(function() {
   angular.bootstrap(document, [mainApplicationModuleName]);

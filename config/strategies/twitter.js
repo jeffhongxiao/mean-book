@@ -18,8 +18,8 @@ module.exports = function() {
     console.log("providerData = " + JSON.stringify(providerData));
 
     var providerUserProfile = {
-      fullName: profile.displayName,
-      username: profile.username,
+      fullName: providerData.name, // profile.name,
+      username: providerData.screen_name, // profile.screen_name,
       provider: 'twitter',
       providerId: profile.id,
       providerData: providerData

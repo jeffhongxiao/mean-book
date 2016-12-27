@@ -8,8 +8,8 @@ var UserSchema = new Schema({
   lastName: String,
   email: {
     type: String,
-	index: true,
-	match: [/.+\@.+\..+/, 'Please fill a valid email address' ]	// validator
+	  index: true,
+	  match: [/.+\@.+\..+/, 'Please fill a valid email address' ]	// validator
   },
   username: {
 	type: String,
@@ -59,12 +59,18 @@ var UserSchema = new Schema({
 
 UserSchema.virtual('fullName')
   .get(function() {
-    return this.firstName + ' ' + this.lastName;
+    return this.lastName + ', ' + this.firstName;
   })
   .set(function(fullName) {
-    var splitName = fullName.split(' ');
-    this.firstName = splitName[0] || '';
-    this.lastName = splitName[1] || '';
+    console.log("fullName = " + fullName);
+    // if (!fullName) {
+    //   fullName = "Hillary Clinton";
+    // }
+    if (fullName) {
+      var splitName = fullName.split(' ');
+      this.firstName = splitName[0] || '';
+      this.lastName = splitName[1] || '';
+    }
   });
 
 UserSchema.pre('save', function(next) {
