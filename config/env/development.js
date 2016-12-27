@@ -9,8 +9,8 @@ module.exports = {
   },
 
   twitter: {
-    clientID: 'D0JW1e1btRb2wnj8XCmzfofgQ',
-    clientSecret: 'faXdo8Zfirak2cri9v2riOf1dO0TAppwOXWBGohF1E14PXdejb',
+    clientID: 'op315dRAFDGmf0quFAedZweph',
+    clientSecret: 'tM2oTGQDlG3FcRSlCH29SsaaRSMRmuv8hutqBTq6KOjnbIrpz3',
     callbackURL: 'http://localhost:3000/oauth/twitter/callback'
   }
 };
