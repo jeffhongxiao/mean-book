@@ -44,9 +44,10 @@ module.exports = function() {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  // XXX: need to be before all *.routes.js, so that /users/*.js can be served
+  // XXX: need to be before all *.routes.js, so that /public/[users,articles,...]/*.js can be served
+  // FIXME: articles/*.js does not serve as static
   app.use(express.static('./public'));
-
+  
   require('../app/routes/index.server.routes.js')(app);
   require('../app/routes/user.server.routes')(app);
   require('../app/routes/articles.server.routes')(app);
