@@ -2,3 +2,5 @@ node_modules/
 *.swp
 
 config/env/
+
+npm-debug.log
