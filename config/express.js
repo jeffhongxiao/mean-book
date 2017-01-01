@@ -1,5 +1,6 @@
-var config = require('./config')
-var session = require('express-session')
+var config = require('./config');
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 
 var express = require('express');
 var morgan = require('morgan');
@@ -11,8 +12,13 @@ var passport = require('passport');
 
 var flash = require('connect-flash');
 
-module.exports = function() {
+var http = require('http');
+var socketio = require('socket.io');
+
+module.exports = function(db) {
   var app = express();
+  var server = http.createServer(app);
+  var io = socketio.listen(server);
 
   // use logging and compress in different NODE_ENV
   if (process.env.NODE_ENV === 'development') {
@@ -29,10 +35,14 @@ module.exports = function() {
   app.use(methodOverride());
 
   // session management
+  var mongoStore = new MongoStore({
+    db: db.connection.db
+  });
   app.use(session({
     saveUninitialized: true,
     resave: true,
-    secret: config.sessionSecret
+    secret: config.sessionSecret,
+    store: mongoStore
   }));
 
   /****** VIEW ********/
@@ -44,13 +54,13 @@ module.exports = function() {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  // XXX: need to be before all *.routes.js, so that /public/[users,articles,...]/*.js can be served
-  // FIXME: articles/*.js does not serve as static
+  // XXX: need to be before all *.routes.js, so that /public/users/*.js can be served
   app.use(express.static('./public'));
-  
+
   require('../app/routes/index.server.routes.js')(app);
   require('../app/routes/user.server.routes')(app);
   require('../app/routes/articles.server.routes')(app);
 
-  return app;
+  require('./socketio')(server, io, mongoStore);
+  return server;
 };
