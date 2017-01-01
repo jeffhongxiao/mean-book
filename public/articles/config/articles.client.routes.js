@@ -4,7 +4,7 @@ angular.module('articles').config(['$routeProvider',
     when('/articles', {
       templateUrl: 'articles/views/list-articles.client.view.html'
     }).
-    when('articles/create', {
+    when('/articles/create', {
       templateUrl: 'articles/views/create-article.client.view.html'
     }).
     when('/articles/:articleId', {
