@@ -13,10 +13,10 @@ module.exports = function() {
       '-password -salt',
       function (err, user) {
         done(err, user);
-      })
+      });
   });
 
   require('./strategies/local.js')();
   require('./strategies/facebook.js')();
   require('./strategies/twitter.js')();
-}
+};

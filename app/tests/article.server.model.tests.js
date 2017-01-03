@@ -35,7 +35,7 @@ describe('Article Model Unit Tests:', function() {
     it('Should be able to save without problems', function() {
       article.save(function(err) {
         should.not.exist(err);
-      })
+      });
     });
 
     it('Should not be able to save an article without a title', function() {

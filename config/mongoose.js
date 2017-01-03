@@ -8,4 +8,4 @@ module.exports = function() {
   require('../app/models/article.server.model');
 
   return db;
-}
+};

@@ -44,7 +44,7 @@ exports.renderSignup = function(req, res, next) {
   } else {
     return res.redirect('/');
   }
-}
+};
 
 exports.signup = function(req, res, next) {
   if (!req.user) {
@@ -68,7 +68,7 @@ exports.signup = function(req, res, next) {
   } else {
     return res.redirect('/');
   }
-}
+};
 
 exports.signout = function(req, res) {
   req.logout();
@@ -133,7 +133,7 @@ exports.delete = function(req, res, next) {
     } else {
       res.json(req.user);
     }
-  })
+  });
 };
 
 exports.saveOAuthUserProfile = function(req, profile, done) {
@@ -177,7 +177,7 @@ exports.requiresLogin = function(req, res, next) {
   if (! req.isAuthenticated()) {
     return res.status(401).send( {
       message: 'User is not logged in'
-    })
+    });
   }
   next();
 };

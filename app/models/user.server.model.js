@@ -51,7 +51,7 @@ var UserSchema = new Schema({
   		url = 'http://' + url;
 
   		return url;
-  	  };
+  	  }
   	},
   },
 
@@ -103,7 +103,7 @@ UserSchema.statics.findUniqueUsername = function(username, suffix, callback) {
     } else {
       callback(null);
     }
-  })
+  });
 };
 UserSchema.statics.findOneByUsername = function(username, callback) {
   this.findOne({ username: new RegExp(username, 'i') }, callback);

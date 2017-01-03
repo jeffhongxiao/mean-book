@@ -10,7 +10,7 @@ var getErrorMessage = function(err) {
   else {
    return 'Unknow server error';
   }
-}
+};
 
 exports.create = function(req, res) {
   var article = new Article(req.body);
@@ -70,7 +70,7 @@ exports.update = function(req, res) {
     } else {
       res.json(article);
     }
-  })
+  });
 };
 
 exports.delete = function(req, res) {
@@ -94,4 +94,4 @@ exports.hasAuthorization = function(req, res, next) {
     });
   }
   next();
-}
+};
